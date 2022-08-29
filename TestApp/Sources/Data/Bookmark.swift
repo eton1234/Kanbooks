@@ -30,7 +30,7 @@ struct Bookmark: Codable {
         self.created = created
     }
 }
-
+//
 //Bookmark extends DB stuff
 extension Bookmark: TableRecord, FetchableRecord, PersistableRecord {
     enum Columns: String, ColumnExpression {
