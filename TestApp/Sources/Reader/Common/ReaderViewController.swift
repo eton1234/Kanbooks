@@ -464,7 +464,8 @@ extension ReaderViewController: NavigatorDelegate {
     }
     
 }
-
+//handles taps
+//TODO: change
 extension ReaderViewController: VisualNavigatorDelegate {
     
     func navigator(_ navigator: VisualNavigator, didTapAt point: CGPoint) {

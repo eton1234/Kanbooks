@@ -1,50 +1,59 @@
 //
-//  Copyright 2021 Readium Foundation. All rights reserved.
-//  Use of this source code is governed by the BSD-style license
-//  available in the top-level LICENSE file of the project.
+//  word.swift
+//  TestApp
+//
+//  Created by Ethan Chan on 8/10/22.
 //
 
-import Combine
 import Foundation
 import GRDB
 import R2Shared
+//fields:
+/*
+ locator
+ nearest sentence
+ */
 
-struct Bookmark: Codable {
+
+struct Word: Codable {
     struct Id: EntityId { let rawValue: Int64 }
-    
     let id: Id?
     /// Foreign key to the publication.
     var bookId: Book.Id
-    /// Location in the publication.
+    /// Word Location in the publication.
     var locator: Locator
+    // the full sentence
+    var sentence: Locator
     /// Progression in the publication, extracted from the locator.
     var progression: Double?
     /// Date of creation.
     var created: Date = Date()
-    
-    init(id: Id? = nil, bookId: Book.Id, locator: Locator, created: Date = Date()) {
+    init(id: Id? = nil, bookId: Book.Id, locator: Locator, sent: Locator, created: Date = Date()) {
         self.id = id
         self.bookId = bookId
         self.locator = locator
+        self.sentence = sent
         self.progression = locator.locations.totalProgression
         self.created = created
     }
 }
 
-//Bookmark extends DB stuff
-extension Bookmark: TableRecord, FetchableRecord, PersistableRecord {
+//word extends DB stuff
+//TODO: add the sent
+extension Word: TableRecord, FetchableRecord, PersistableRecord {
     enum Columns: String, ColumnExpression {
         case id, bookId, locator, progression, created
     }
 }
 //Repository for books
-final class BookmarkRepository {
+final class WordRepository {
     private let db: Database
     
     init(db: Database) {
         self.db = db
     }
-    
+}
+    /*
     func all(for bookId: Book.Id) -> AnyPublisher<[Bookmark], Error> {
         db.observe { db in
             try Bookmark
@@ -67,4 +76,5 @@ final class BookmarkRepository {
 }
 
 // for the default SwiftUI support
-extension Bookmark: Hashable {}
+extension Word: Hashable {}
+*/

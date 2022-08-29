@@ -21,6 +21,7 @@ class EPUBViewController: ReaderViewController {
     init(publication: Publication, locator: Locator?, bookId: Book.Id, books: BookRepository, bookmarks: BookmarkRepository, highlights: HighlightRepository, resourcesServer: ResourcesServer) {
         var navigatorEditingActions = EditingAction.defaultActions
         navigatorEditingActions.append(EditingAction(title: "Highlight", action: #selector(highlightSelection)))
+        //TODO: add your custom editing action for a diff type of hilight 
         var navigatorConfig = EPUBNavigatorViewController.Configuration()
         navigatorConfig.editingActions = navigatorEditingActions
         
