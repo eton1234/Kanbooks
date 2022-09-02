@@ -57,7 +57,42 @@ class ReaderViewController: UIViewController, Loggable {
         ttsControlsViewController = ttsViewModel.map { UIHostingController(rootView: TTSControls(viewModel: $0)) }
 
         super.init(nibName: nil, bundle: nil)
+        
+        guard let content = publication.content() else {
+            return
+        }
 
+        let wordTokenizer = makeTextContentTokenizer(
+            defaultLanguage: publication.metadata.language,
+            textTokenizerFactory: { language in
+                makeDefaultTextTokenizer(unit: .word, language: language)
+            }
+        )
+        do {
+            let words: [TextContentElement.Segment] = try content
+                .elements()
+                .flatMap { try wordTokenizer($0) }
+                .compactMap { $0 as? TextContentElement }
+                .flatMap { $0.segments }
+            for word in words {
+                if word.text == "我" {
+                    print("helllooooo")
+                }
+            }
+            /*
+            (navigator as? DecorableNavigator)?.apply(
+                decorations: words.enumerated().map { (index, word) in
+                    Decoration(
+                        id: "word-\(index)",
+                        locator: word.locator,
+                        style: .highlight(tint: .red, isActive: true)
+                    )
+                },
+                in: "words"
+            )*/
+        } catch {
+            print(error)
+        }
         addHighlightDecorationsObserverOnce()
         updateHighlightDecorations()
     
