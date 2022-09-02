@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>R2 Reader</string>
+	<string>Kanbooks</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

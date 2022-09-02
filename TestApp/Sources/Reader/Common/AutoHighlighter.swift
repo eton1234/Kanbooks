@@ -27,9 +27,13 @@ class AutoHighlightModel {
         )
         var known_words = ["the": 1, "of":1 ,"at": 1,"and": 1]
         for el in content.sequence() {
+            if counter > 50 {
+                return
+            }
             counter += 1;
-            if el is TextContentElement && counter > 40 && counter < 60 {
+            if el is TextContentElement && counter > 40 {
                 do {
+                    
                     var smth   = try wordTokenizer(el)
                     var words: [TextContentElement.Segment]  = smth.compactMap{$0 as? TextContentElement}
                         .flatMap { $0.segments }
