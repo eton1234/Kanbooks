@@ -25,30 +25,25 @@ class AutoHighlightModel {
                 makeDefaultTextTokenizer(unit: .word, language: language)
             }
         )
+        var fee: [TextContentElement.Segment]  = []
         var known_words = ["the": 1, "of":1 ,"at": 1,"and": 1]
         for el in content.sequence() {
-            if counter > 50 {
-                return
+            if counter > 41 {
+                break
             }
             counter += 1;
             if el is TextContentElement && counter > 40 {
                 do {
-                    
                     var smth   = try wordTokenizer(el)
                     var words: [TextContentElement.Segment]  = smth.compactMap{$0 as? TextContentElement}
                         .flatMap { $0.segments }
                     words = words.filter { known_words[$0.text] == nil }
-                    (navigator as? DecorableNavigator)?.apply(
-                                    decorations: words.enumerated().map { (index, word) in
-                                        Decoration(
-                                            id: "word-\(index)",
-                                            locator: word.locator,
-                                            style: .highlight(tint: .red, isActive: true)
-                                        )
-                                    },
-                                    in: "words")
+                    for word in words {
+                        fee.append(word)
+                    }
+                    // .apply is sreally slow
                 } catch {
-                    return
+                    continue
                 }
                     /*
                     if let text: String = el.text {
@@ -56,23 +51,17 @@ class AutoHighlightModel {
                     }*/
             }
         }
+        //print(fee)
         
-      
-        //print(content.elements())
-        do {
-            let words: [TextContentElement.Segment] = try content
-                .elements()
-                .flatMap { try wordTokenizer($0) }
-                .compactMap { $0 as? TextContentElement }
-                .flatMap { $0.segments }
-            for word in words {
-                if word.text == "hello" {
-                    print("helllooooo")
-                }
-            }
-        } catch {
-            print(error)
-        }
+        (navigator as? DecorableNavigator)?.apply(
+                        decorations: fee.enumerated().map { (index, word) in
+                            Decoration(
+                                id: "word-\(index)",
+                                locator: word.locator,
+                                style: .highlight(tint: .red, isActive: true)
+                            )
+                        },
+                        in: "fee")
     }
    
         /*
@@ -84,7 +73,7 @@ class AutoHighlightModel {
                     style: .highlight(tint: .red, isActive: true)
                 )
             },
-            in: "words"
+            in: "words" `
         )*/
 
 }

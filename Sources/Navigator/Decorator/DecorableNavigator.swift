@@ -10,7 +10,6 @@ import R2Shared
 
 /// A navigator able to render arbitrary decorations over a publication.
 public protocol DecorableNavigator {
-
     /// Declares the current state of the decorations in the given decoration `group`.
     ///
     /// The Navigator will decide when to actually render each decoration efficiently. Your only responsibility is to

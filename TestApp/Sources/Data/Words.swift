@@ -11,29 +11,8 @@ import R2Shared
 import R2Navigator
 import UIKit
 
-enum HighlightColor: UInt8, Codable, SQLExpressible {
-    case red = 1
-    case green = 2
-    case blue = 3
-    case yellow = 4
-}
 
-extension HighlightColor {
-    var uiColor: UIColor {
-        switch self {
-        case .red:
-            return .red
-        case .green:
-            return .green
-        case .blue:
-            return .blue
-        case .yellow:
-            return .yellow
-        }
-    }
-}
-
-struct Highlight: Codable {
+struct Word: Codable {
     typealias Id = String
     
     let id: Id
@@ -47,7 +26,7 @@ struct Highlight: Codable {
     var created: Date = Date()
     /// Total progression in the publication.
     var progression: Double?
-    //normal init
+    
     init(id: Id = UUID().uuidString, bookId: Book.Id, locator: Locator, color: HighlightColor, created: Date = Date()) {
         self.id = id
         self.bookId = bookId
@@ -57,7 +36,6 @@ struct Highlight: Codable {
         self.color = color
         self.created = created
     }
-    //init for autoHighlighting
     init(id: Id = UUID().uuidString, bookId: Book.Id, locator: Locator, color: HighlightColor, created: Date = Date(), progression: Int) {
         self.id = id
         self.bookId = bookId
@@ -70,58 +48,58 @@ struct Highlight: Codable {
     
 }
 
-extension Highlight: TableRecord, FetchableRecord, PersistableRecord {
+extension Word: TableRecord, FetchableRecord, PersistableRecord {
     enum Columns: String, ColumnExpression {
         case id, bookId, locator, color, created, progression
     }
 }
 
-struct HighlightNotFoundError: Error {}
+struct WordNotFoundError: Error {}
 
-final class HighlightRepository {
+final class WordRepository {
     private let db: Database
     
     init(db: Database) {
         self.db = db
     }
     
-    func all(for bookId: Book.Id) -> AnyPublisher<[Highlight], Error> {
+    func all(for bookId: Book.Id) -> AnyPublisher<[Word], Error> {
         db.observe { db in
-            try Highlight
-                .filter(Highlight.Columns.bookId == bookId)
-                .order(Highlight.Columns.progression)
+            try Word
+                .filter(Word.Columns.bookId == bookId)
+                .order(Word.Columns.progression)
                 .fetchAll(db)
         }
     }
     
-    func highlight(for highlightId: Highlight.Id) -> AnyPublisher<Highlight, Error> {
+    func highlight(for wordId: Word.Id) -> AnyPublisher<Word, Error> {
         db.observe { db in
-            try Highlight
-                .filter(Highlight.Columns.id == highlightId)
+            try Word
+                .filter(Word.Columns.id == wordId)
                 .fetchOne(db)
-                .orThrow(HighlightNotFoundError())
+                .orThrow(WordNotFoundError())
         }
     }
     
-    func add(_ highlight: Highlight) -> AnyPublisher<Highlight.Id, Error> {
+    func add(_ word: Word) -> AnyPublisher<Word.Id, Error> {
         return db.write { db in
-            try highlight.insert(db)
-            return highlight.id
+            try word.insert(db)
+            return word.id
         }.eraseToAnyPublisher()
     }
     
-    func update(_ id: Highlight.Id, color: HighlightColor) -> AnyPublisher<Void, Error> {
+    func update(_ id: Word.Id, color: HighlightColor) -> AnyPublisher<Void, Error> {
         return db.write { db in
-            let filtered = Highlight.filter(Highlight.Columns.id == id)
-            let assignment = Highlight.Columns.color.set(to: color)
+            let filtered = Word.filter(Word.Columns.id == id)
+            let assignment = Word.Columns.color.set(to: color)
             try filtered.updateAll(db, onConflict: nil, assignment)
         }.eraseToAnyPublisher()
     }
         
-    func remove(_ id: Highlight.Id) -> AnyPublisher<Void, Error> {
-        db.write { db in try Highlight.deleteOne(db, key: id) }
+    func remove(_ id: Word.Id) -> AnyPublisher<Void, Error> {
+        db.write { db in try Word.deleteOne(db, key: id) }
     }
 }
 
 // for the default SwiftUI support
-extension Highlight: Hashable {}
+extension Word: Hashable {}

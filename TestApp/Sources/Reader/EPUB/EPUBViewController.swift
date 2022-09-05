@@ -29,10 +29,53 @@ class EPUBViewController: ReaderViewController {
             (settingsStoryboard.instantiateViewController(withIdentifier: "AdvancedSettingsViewController") as! AdvancedSettingsViewController)
         
         super.init(navigator: navigator, publication: publication, bookId: bookId, books: books, bookmarks: bookmarks, highlights: highlights)
-        
+        autoHigh(publication: self.publication, navigator: self.navigator)
+        //TODO: add highlight for auto
         navigator.delegate = self
     }
-    
+    func autoHigh(publication: Publication,navigator: Navigator) {
+        var currentLocation = self.navigator.currentLocation
+        guard let content = publication.content(from: currentLocation) else { return };
+        var counter = 0;
+        //lambda function
+        let wordTokenizer = makeTextContentTokenizer(
+            defaultLanguage: publication.metadata.language,
+            textTokenizerFactory: { language in
+                makeDefaultTextTokenizer(unit: .word, language: language)
+            }
+        )
+        //https://www.gutenberg.org/ebooks/24060.epub.noimages
+        var fee: [TextContentElement.Segment]  = []
+        var known_words = ["the": 1, "of":1 ,"at": 1,"and": 1]
+        for el in content.sequence() {
+            if counter > 46 {
+                break
+            }
+            counter += 1;
+            if el is TextContentElement && counter > 40 {
+                do {
+                    
+                    var smth   = try wordTokenizer(el)
+                    var words: [TextContentElement.Segment]  = smth.compactMap{$0 as? TextContentElement}
+                        .flatMap { $0.segments }
+                    words = words.filter { known_words[$0.text] == nil }
+                    for word in words {
+                        //print(bookId, word.locator.text, word.locator.locations)
+                        let highlight = Highlight(bookId: bookId, locator: word.locator, color: .red, progression: 0)
+                        saveHighlight(highlight)
+                    }
+                    // .apply is sreally slow
+                } catch {
+                    continue
+                }
+                    /*
+                    if let text: String = el.text {
+                        print("text?: " + text )
+                    }*/
+        }
+        //print(fee)
+    }
+    }
     var epubNavigator: EPUBNavigatorViewController {
         return navigator as! EPUBNavigatorViewController
     }
@@ -116,7 +159,6 @@ class EPUBViewController: ReaderViewController {
         }
     }
 }
-
 extension EPUBViewController: EPUBNavigatorDelegate {
     
 }

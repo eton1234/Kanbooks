@@ -20,7 +20,7 @@ class ReaderViewController: UIViewController, Loggable {
     let navigator: UIViewController & Navigator
     let publication: Publication
     let bookId: Book.Id
-    let autoHighlighter: AutoHighlightModel
+    //let autoHighlighter: AutoHighlightModel
     private let books: BookRepository
     private let bookmarks: BookmarkRepository
     private let highlights: HighlightRepository?
@@ -57,7 +57,7 @@ class ReaderViewController: UIViewController, Loggable {
         ttsViewModel = TTSViewModel(navigator: navigator, publication: publication)
         ttsControlsViewController = ttsViewModel.map { UIHostingController(rootView: TTSControls(viewModel: $0)) }
         //the force unwrap is kindabad
-        autoHighlighter = AutoHighlightModel(publication: publication, navigator: navigator )
+        //autoHighlighter = AutoHighlightModel(publication: publication, navigator: navigator )
         super.init(nibName: nil, bundle: nil)
         addHighlightDecorationsObserverOnce()
         updateHighlightDecorations()

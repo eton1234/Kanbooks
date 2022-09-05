@@ -49,6 +49,14 @@ final class Database {
                 t.column("color", .integer).notNull()
                 t.column("created", .datetime).notNull()
             }
+            try db.create(table: "word", ifNotExists: true) { t in
+                t.column("id", .text).primaryKey()
+                t.column("bookId", .integer).references("book", onDelete: .cascade).notNull()
+                t.column("locator", .text)
+                t.column("progression", .double).notNull()
+                t.column("color", .integer).notNull()
+                t.column("created", .datetime).notNull()
+            }
             
             // create an index to make sorting by progression faster
             try db.create(index: "index_highlight_progression", on: "highlight", columns: ["bookId", "progression"], ifNotExists: true)

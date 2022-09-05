@@ -49,6 +49,7 @@
 		653C1610C425FF01976ADF76 /* DRMLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6362C74EC6EAF98710B865 /* DRMLibraryService.swift */; };
 		66BBF21937922BFF203BD22B /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0047FA2CA811ED2C674AFA /* AboutTableViewController.swift */; };
 		679FEB4BEBB82AF7CE8BE3AC /* DRMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E576E76A22085B41F109F1 /* DRMViewModel.swift */; };
+		69681A0B28C5C14500FE961B /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69681A0A28C5C14500FE961B /* Words.swift */; };
 		69E436CB28C1765800138D91 /* AutoHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E436CA28C1765800138D91 /* AutoHighlighter.swift */; };
 		6B97BB7B63095C2AC022E89E /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = DF242645FC2556F9AE7E90D2 /* SwiftSoup */; };
 		6C42063C11C6F27E0CEE5D84 /* DetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D58B9E3F9238B61A5EB0A /* DetailsTableViewController.swift */; };
@@ -135,6 +136,7 @@
 		61BB0DBEF8FA7DA2AA818CBF /* FontSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectionViewController.swift; sourceTree = "<group>"; };
 		646477FFB2C6B197EB588F6D /* HighlightContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightContextMenu.swift; sourceTree = "<group>"; };
 		6898D20CA53FACF93D1112AD /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
+		69681A0A28C5C14500FE961B /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		69E436CA28C1765800138D91 /* AutoHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoHighlighter.swift; sourceTree = "<group>"; };
 		6CFE73F029228D69949169CA /* Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Highlight.swift; sourceTree = "<group>"; };
 		76DE6839679D50BCA960FDC7 /* ReaderFormatModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderFormatModule.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 			children = (
 				15F4BEF972CC84C0C164F786 /* Book.swift */,
 				E63B6D32BBF721EC9447161B /* Bookmark.swift */,
+				69681A0A28C5C14500FE961B /* Words.swift */,
 				7A8C5EDECAA900C3461CE9C7 /* Database.swift */,
 				6CFE73F029228D69949169CA /* Highlight.swift */,
 			);
@@ -657,6 +660,7 @@
 				3B976407BACECEE3611FB5F1 /* ReaderModule.swift in Sources */,
 				CE4C369B3EF1544D5F4C5C7D /* ReaderViewController.swift in Sources */,
 				51D9043A73F17F021E9B7D84 /* ScreenOrientation.swift in Sources */,
+				69681A0B28C5C14500FE961B /* Words.swift in Sources */,
 				47DF4AFCB93FA4F77139BDC4 /* SearchView.swift in Sources */,
 				7AE5309BC32DE4365AA59A1A /* SearchViewModel.swift in Sources */,
 				8C1684D4D3575BE4263793DA /* String.swift in Sources */,
