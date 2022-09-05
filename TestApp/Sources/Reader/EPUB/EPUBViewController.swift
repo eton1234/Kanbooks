@@ -20,7 +20,6 @@ class EPUBViewController: ReaderViewController {
         navigatorConfig.editingActions = navigatorEditingActions
         
         let navigator = EPUBNavigatorViewController(publication: publication, initialLocation: locator, resourcesServer: resourcesServer, config: navigatorConfig)
-
         let settingsStoryboard = UIStoryboard(name: "UserSettings", bundle: nil)
         userSettingNavigationController = settingsStoryboard.instantiateViewController(withIdentifier: "UserSettingsNavigationController") as! UserSettingsNavigationController
         userSettingNavigationController.fontSelectionViewController =
@@ -29,16 +28,21 @@ class EPUBViewController: ReaderViewController {
             (settingsStoryboard.instantiateViewController(withIdentifier: "AdvancedSettingsViewController") as! AdvancedSettingsViewController)
         
         super.init(navigator: navigator, publication: publication, bookId: bookId, books: books, bookmarks: bookmarks, highlights: highlights)
-        autoHigh(publication: self.publication, navigator: self.navigator)
+        navigator.firstVisibleElementLocator { locator in
+            let content = publication.content(from: locator)
+            self.autoHigh(publication: self.publication, navigator: navigator)
+        }
+        
         //TODO: add highlight for auto
         navigator.delegate = self
     }
-    func autoHigh(publication: Publication,navigator: Navigator) {
-        var currentLocation = self.navigator.currentLocation
-        guard let content = publication.content(from: currentLocation) else { return };
+    func autoHigh(publication: Publication, navigator: EPUBNavigatorDelegate) {
+        
+        var currentLocation = navigator.currentLocation
+        //guard let content = publication.content(from: currentLocation) else { return };
+        guard let content = content else { return};
         var counter = 0;
         //lambda wordTokenizer function
-        print(publication.metadata.language)
         let wordTokenizer = makeTextContentTokenizer(
             defaultLanguage: publication.metadata.language,
             textTokenizerFactory: { language in
@@ -58,7 +62,7 @@ class EPUBViewController: ReaderViewController {
                     //words = words.filter { known_words[$0.text] == nil }
                     for word in words {
                         word_count+=1
-                        if word_count > 600 {
+                        if word_count > 50 {
                             return
                         }
                         print(word.text, word_count)
