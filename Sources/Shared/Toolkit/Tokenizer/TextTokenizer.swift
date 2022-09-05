@@ -36,6 +36,7 @@ public func makeDefaultTextTokenizer(unit: TextUnit, language: Language? = nil) 
 /// A text `Tokenizer` using iOS 12+'s NaturalLanguage framework.
 @available(iOS 12.0, *)
 public func makeNLTextTokenizer(unit: TextUnit, language: Language? = nil) -> TextTokenizer {
+    print("yo")
     let unit = unit.nlUnit
     let language = language.map { NLLanguage($0.code.bcp47) }
 

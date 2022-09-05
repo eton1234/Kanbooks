@@ -61,6 +61,8 @@ struct HighlightContextMenu: View {
             return "🔵"
         case .yellow:
             return "🟡"
+        case .clear:
+            return "⚪️"
         }
     }
     

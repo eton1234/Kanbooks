@@ -303,7 +303,7 @@ class ReaderViewController: UIViewController, Loggable {
             highlightContextMenu?.removeFromParent()
         }
         
-        let menuView = HighlightContextMenu(colors: [.red, .green, .blue, .yellow],
+        let menuView = HighlightContextMenu(colors: [.red, .green, .blue, .yellow, .clear],
                                             systemFontSize: 20,
                                             colorScheme: colorScheme)
         

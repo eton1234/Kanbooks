@@ -16,6 +16,7 @@ enum HighlightColor: UInt8, Codable, SQLExpressible {
     case green = 2
     case blue = 3
     case yellow = 4
+    case clear = 5
 }
 
 extension HighlightColor {
@@ -29,6 +30,8 @@ extension HighlightColor {
             return .blue
         case .yellow:
             return .yellow
+        case .clear:
+            return UIColor(white: 0.8, alpha: 0)
         }
     }
 }
