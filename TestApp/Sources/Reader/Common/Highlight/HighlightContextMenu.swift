@@ -11,7 +11,8 @@ struct HighlightContextMenu: View {
     let colors: [HighlightColor]
     let systemFontSize: CGFloat
     let colorScheme: ColorScheme
-    
+    let highlight: Highlight
+
     private let colorSubject = PassthroughSubject<HighlightColor, Never>()
     var selectedColorPublisher: AnyPublisher<HighlightColor, Never> {
         return colorSubject.eraseToAnyPublisher()
@@ -23,6 +24,7 @@ struct HighlightContextMenu: View {
     }
     
     var body: some View {
+        VStack {
         HStack {
             ForEach(colors, id: \.self) { color in
                 Button {
@@ -42,12 +44,16 @@ struct HighlightContextMenu: View {
             }
         }
         .colorStyle(colorScheme)
+            
+            
+            Text(String(highlight.locator.text.highlight ?? "none") )
+        }
     }
     
     var preferredSize: CGSize {
         let itemSide = itemSideSize
         let itemsCount = colors.count + 1 // 1 is for "delete"
-        return CGSize(width: itemSide*CGFloat(itemsCount), height: itemSide)
+        return CGSize(width: itemSide*CGFloat(itemsCount), height: itemSide*20)
     }
     
 // MARK: - Private

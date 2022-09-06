@@ -20,7 +20,6 @@ class EPUBViewController: ReaderViewController {
         navigatorConfig.editingActions = navigatorEditingActions
         
         let navigator = EPUBNavigatorViewController(publication: publication, initialLocation: locator, resourcesServer: resourcesServer, config: navigatorConfig)
-
         let settingsStoryboard = UIStoryboard(name: "UserSettings", bundle: nil)
         userSettingNavigationController = settingsStoryboard.instantiateViewController(withIdentifier: "UserSettingsNavigationController") as! UserSettingsNavigationController
         userSettingNavigationController.fontSelectionViewController =
@@ -29,16 +28,18 @@ class EPUBViewController: ReaderViewController {
             (settingsStoryboard.instantiateViewController(withIdentifier: "AdvancedSettingsViewController") as! AdvancedSettingsViewController)
         
         super.init(navigator: navigator, publication: publication, bookId: bookId, books: books, bookmarks: bookmarks, highlights: highlights)
-        autoHigh(publication: self.publication, navigator: self.navigator)
+        print("start is: ", navigator)
+        
         //TODO: add highlight for auto
         navigator.delegate = self
     }
-    func autoHigh(publication: Publication,navigator: Navigator) {
-        var currentLocation = self.navigator.currentLocation
+    func autoHigh(publication: Publication, currentLocation: Locator?) {
+        
+        //var currentLocation = navigator.currentLocation
         guard let content = publication.content(from: currentLocation) else { return };
+        //guard let content = content else { return};
         var counter = 0;
         //lambda wordTokenizer function
-        print(publication.metadata.language)
         let wordTokenizer = makeTextContentTokenizer(
             defaultLanguage: publication.metadata.language,
             textTokenizerFactory: { language in
@@ -58,7 +59,7 @@ class EPUBViewController: ReaderViewController {
                     //words = words.filter { known_words[$0.text] == nil }
                     for word in words {
                         word_count+=1
-                        if word_count > 600 {
+                        if word_count > 400 {
                             return
                         }
                         print(word.text, word_count)
@@ -83,7 +84,8 @@ class EPUBViewController: ReaderViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+       /*  */
+        //navigator.currentLocation
         /// Set initial UI appearance.
         if let appearance = publication.userProperties.getProperty(reference: ReadiumCSSReference.appearance.rawValue) {
             setUIColor(for: appearance)
@@ -160,9 +162,46 @@ class EPUBViewController: ReaderViewController {
         }
     }
 }
+//used to be in the ReaderViewController but i removed it
 extension EPUBViewController: EPUBNavigatorDelegate {
     
 }
+
+extension EPUBViewController: VisualNavigatorDelegate {
+    
+    func navigator(_ navigator: VisualNavigator, didTapAt point: CGPoint) {
+        // clear a current search highlight
+        if let decorator = self.navigator as? DecorableNavigator {
+            decorator.apply(decorations: [], in: "search")
+        }
+        
+        let viewport = navigator.view.bounds
+        // Skips to previous/next pages if the tap is on the content edges.
+        let thresholdRange = 0...(0.2 * viewport.width)
+        var moved = false
+        if thresholdRange ~= point.x {
+            moved = navigator.goLeft(animated: false)
+           
+        } else if thresholdRange ~= (viewport.maxX - point.x) {
+            moved = navigator.goRight(animated: false)
+        }
+        
+        if !moved {
+            toggleNavigationBar()
+            
+            if let navigator = navigator as? VisualNavigator {
+             navigator.firstVisibleElementLocator { locator in
+                 //print("helloo",locator)
+                 //let content = publication.content(from: locator)
+                 if let self = self as? EPUBViewController {
+                     self.autoHigh(publication: self.publication, currentLocation: locator)
+                 }
+             } } else {return}
+        }
+    }
+    
+}
+
 
 extension EPUBViewController: UIGestureRecognizerDelegate {
     
@@ -183,7 +222,7 @@ extension EPUBViewController: UserSettingsNavigationControllerDelegate {
             self.epubNavigator.updateUserSettingStyle()
         }
     }
-    
+    //TODO: I can use this to change the highlight color to the proper
     /// Synchronyze the UI appearance to the UserSettings.Appearance.
     ///
     /// - Parameter appearance: The appearance.
