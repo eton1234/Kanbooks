@@ -305,7 +305,7 @@ class ReaderViewController: UIViewController, Loggable {
         
         let menuView = HighlightContextMenu(colors: [.red, .green, .blue, .yellow, .clear],
                                             systemFontSize: 20,
-                                            colorScheme: colorScheme)
+                                            colorScheme: colorScheme, highlight: highlight)
         
         menuView.selectedColorPublisher.sink { [weak self] color in
             self?.currentHighlightCancellable?.cancel()
@@ -323,7 +323,7 @@ class ReaderViewController: UIViewController, Loggable {
         
         self.highlightContextMenu = UIHostingController(rootView: menuView)
         
-        highlightContextMenu!.preferredContentSize = menuView.preferredSize
+       // highlightContextMenu!.preferredContentSize = menuView.preferredSize
         highlightContextMenu!.modalPresentationStyle = .popover
         highlightContextMenu!.view.backgroundColor = UIColor(colorScheme.mainColor)
         
@@ -490,6 +490,7 @@ extension ReaderViewController: NavigatorDelegate {
 }
 //handles taps
 //TODO: change
+/*
 extension ReaderViewController: VisualNavigatorDelegate {
     
     func navigator(_ navigator: VisualNavigator, didTapAt point: CGPoint) {
@@ -504,6 +505,13 @@ extension ReaderViewController: VisualNavigatorDelegate {
         var moved = false
         if thresholdRange ~= point.x {
             moved = navigator.goLeft(animated: false)
+            if let navigator = navigator as? VisualNavigator {
+             navigator.firstVisibleElementLocator { locator in
+                 print("helloo",locator)
+
+                 //let content = publication.content(from: locator)
+                 //self.autoHigh(publication: self.publication, currentLocation: locator)
+             } } else {return}
         } else if thresholdRange ~= (viewport.maxX - point.x) {
             moved = navigator.goRight(animated: false)
         }
@@ -513,7 +521,7 @@ extension ReaderViewController: VisualNavigatorDelegate {
         }
     }
     
-}
+} */
 
 // MARK: - Highlights management
 
