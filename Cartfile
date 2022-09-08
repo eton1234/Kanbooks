@@ -6,4 +6,3 @@ github "readium/GCDWebServer" ~> 3.6.3
 github "scinfu/SwiftSoup" ~> 2.3.2
 github "stephencelis/SQLite.swift" ~> 0.12.2
 github "weichsel/ZIPFoundation" == 0.9.11 # 0.9.12 requires iOS 12+
-github "maximbilan/SwiftGoogleTranslate"

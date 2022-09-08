@@ -49,6 +49,9 @@
 		653C1610C425FF01976ADF76 /* DRMLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6362C74EC6EAF98710B865 /* DRMLibraryService.swift */; };
 		66BBF21937922BFF203BD22B /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0047FA2CA811ED2C674AFA /* AboutTableViewController.swift */; };
 		679FEB4BEBB82AF7CE8BE3AC /* DRMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E576E76A22085B41F109F1 /* DRMViewModel.swift */; };
+		69445FEB28C831C0004CC9A5 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 69445FEA28C831C0004CC9A5 /* Algorithms */; };
+		69445FF828C83ACB004CC9A5 /* SwiftGoogleTranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69445FF728C83ACB004CC9A5 /* SwiftGoogleTranslate.swift */; };
+		69445FFC28C98860004CC9A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 69445FFB28C98860004CC9A5 /* LICENSE */; };
 		69681A0B28C5C14500FE961B /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69681A0A28C5C14500FE961B /* Words.swift */; };
 		69E436CB28C1765800138D91 /* AutoHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E436CA28C1765800138D91 /* AutoHighlighter.swift */; };
 		6B97BB7B63095C2AC022E89E /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = DF242645FC2556F9AE7E90D2 /* SwiftSoup */; };
@@ -136,6 +139,8 @@
 		61BB0DBEF8FA7DA2AA818CBF /* FontSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectionViewController.swift; sourceTree = "<group>"; };
 		646477FFB2C6B197EB588F6D /* HighlightContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightContextMenu.swift; sourceTree = "<group>"; };
 		6898D20CA53FACF93D1112AD /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
+		69445FF728C83ACB004CC9A5 /* SwiftGoogleTranslate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGoogleTranslate.swift; sourceTree = "<group>"; };
+		69445FFB28C98860004CC9A5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		69681A0A28C5C14500FE961B /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		69E436CA28C1765800138D91 /* AutoHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoHighlighter.swift; sourceTree = "<group>"; };
 		6CFE73F029228D69949169CA /* Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Highlight.swift; sourceTree = "<group>"; };
@@ -197,6 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69445FEB28C831C0004CC9A5 /* Algorithms in Frameworks */,
 				5CFD27FD29C5BD394143003B /* R2Shared in Frameworks */,
 				C56984E92B7A2E926C636838 /* R2Streamer in Frameworks */,
 				F4ED5C6327FFE523E8CF4B80 /* R2Navigator in Frameworks */,
@@ -279,6 +285,15 @@
 				C2EE4EC60C5A70DF7ABB722B /* PDF */,
 			);
 			path = Reader;
+			sourceTree = "<group>";
+		};
+		69445FF628C83A8E004CC9A5 /* Translation */ = {
+			isa = PBXGroup;
+			children = (
+				69445FFB28C98860004CC9A5 /* LICENSE */,
+				69445FF728C83ACB004CC9A5 /* SwiftGoogleTranslate.swift */,
+			);
+			path = Translation;
 			sourceTree = "<group>";
 		};
 		69B8C8E02F48815F108CCFE1 /* Resources */ = {
@@ -444,6 +459,7 @@
 				50CE47A8753BDF2AFC906382 /* App */,
 				8A2F34A5F130F65CB7D45DA8 /* Common */,
 				7047830EFDF29D208984C29F /* Data */,
+				69445FF628C83A8E004CC9A5 /* Translation */,
 				E9807BBEBF8401FB0BA852FF /* Library */,
 				C8FA8C0B8A2200D765746926 /* OPDS */,
 				55A6569EB3C4CA615DB0CFEA /* Reader */,
@@ -537,6 +553,7 @@
 				2C8298F775261E56C7117369 /* Kingfisher */,
 				C3115DBE2D75A51EF161141D /* MBProgressHUD */,
 				DF242645FC2556F9AE7E90D2 /* SwiftSoup */,
+				69445FEA28C831C0004CC9A5 /* Algorithms */,
 			);
 			productName = TestApp;
 			productReference = 246DC4CD3FA60DFDA45B7132 /* TestApp.app */;
@@ -564,6 +581,7 @@
 				2FFCA29FFABA23C539A990FE /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				72EAFF80658BDFAB57358249 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 				84B185A6DACA7494BA15D43E /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				69445FE928C831C0004CC9A5 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -584,6 +602,7 @@
 				89E0F3F968F06D1AF4F10E1C /* DRM.storyboard in Resources */,
 				A76472C2F4B19FB6946708D1 /* LaunchScreen.storyboard in Resources */,
 				CC81FE9057CC6A8F7E71B984 /* Library.storyboard in Resources */,
+				69445FFC28C98860004CC9A5 /* LICENSE in Resources */,
 				4D7D9846F97198BCDAC7B211 /* Localizable.strings in Resources */,
 				2D355EDEC14D340D0AB58BA5 /* OPDS.storyboard in Resources */,
 				04CF01E262CCD2B181EF235A /* PublicationCollectionViewCell.xib in Resources */,
@@ -623,6 +642,7 @@
 				183DEE0BB99A73222B34B19C /* Future.swift in Sources */,
 				97407872DD60DBF22BEFC905 /* HTTPClient.swift in Sources */,
 				47C42D3E646F07875FCF1E3B /* Highlight.swift in Sources */,
+				69445FF828C83ACB004CC9A5 /* SwiftGoogleTranslate.swift in Sources */,
 				6FC7AE8B7F61424604666DC8 /* HighlightCellView.swift in Sources */,
 				581AD95B7F9A1D66DE90EDA6 /* HighlightContextMenu.swift in Sources */,
 				F5A8B3AC24D06B209C6CBD18 /* IconButton.swift in Sources */,
@@ -939,6 +959,14 @@
 				minimumVersion = 5.15.8;
 			};
 		};
+		69445FE928C831C0004CC9A5 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		72EAFF80658BDFAB57358249 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jdg/MBProgressHUD.git";
@@ -970,6 +998,11 @@
 		6187AE14BF193806DF7ED92F /* ReadiumOPDS */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ReadiumOPDS;
+		};
+		69445FEA28C831C0004CC9A5 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69445FE928C831C0004CC9A5 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 		97AB05BF98CE51653F1D78D2 /* R2Streamer */ = {
 			isa = XCSwiftPackageProductDependency;
