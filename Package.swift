@@ -19,7 +19,6 @@ let package = Package(
         .library(name: "ReadiumLCP", targets: ["ReadiumLCP"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/maximbilan/SwiftGoogleTranslate", from: "0.2.2"))
         .package(url: "https://github.com/cezheng/Fuzi.git", from: "3.1.3"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.3.8"),
         .package(url: "https://github.com/marmelroy/Zip.git", from: "2.1.1"),
