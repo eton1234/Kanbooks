@@ -8,10 +8,13 @@ import SwiftUI
 import Combine
 
 struct HighlightContextMenu: View {
+    @ObservedObject var trans: Translation
     let colors: [HighlightColor]
     let systemFontSize: CGFloat
     let colorScheme: ColorScheme
     let highlight: Highlight
+    let translation: String
+    
 
     private let colorSubject = PassthroughSubject<HighlightColor, Never>()
     var selectedColorPublisher: AnyPublisher<HighlightColor, Never> {
@@ -22,38 +25,48 @@ struct HighlightContextMenu: View {
     var selectedDeletePublisher: AnyPublisher<Void, Never> {
         return deleteSubject.eraseToAnyPublisher()
     }
-    
+    /*
+    var translation : String {
+        SwiftGoogleTranslate.shared.start(with: "AIzaSyDRdCPU29xPWrz4PWkkvMRmvZMvxe0rLkI");
+        SwiftGoogleTranslate.shared.translate(String(highlight.locator.text.highlight ?? "none"), "en", "zh") { (text, error) in
+          if let t = text {
+            translation =  t
+          } else { return "no translation"}
+    }
+    } */
     var body: some View {
         VStack {
-        HStack {
-            ForEach(colors, id: \.self) { color in
+            HStack {
+                ForEach(colors, id: \.self) { color in
+                    Button {
+                        colorSubject.send(color)
+                    } label: {
+                        Text(emoji(for: color))
+                            .font(.system(size: systemFontSize))
+                    }
+                    Divider()
+                }
+                    
                 Button {
-                    colorSubject.send(color)
+                    deleteSubject.send()
                 } label: {
-                    Text(emoji(for: color))
+                    Image(systemName: "xmark.bin")
                         .font(.system(size: systemFontSize))
                 }
-                Divider()
             }
-                
-            Button {
-                deleteSubject.send()
-            } label: {
-                Image(systemName: "xmark.bin")
-                    .font(.system(size: systemFontSize))
-            }
-        }
-        .colorStyle(colorScheme)
+           // .frame(width: preferredSize.width, height: preferredSize.height)
+            .colorStyle(colorScheme)
             
             
             Text(String(highlight.locator.text.highlight ?? "none") )
+            Text(trans.text)
         }
     }
     
     var preferredSize: CGSize {
         let itemSide = itemSideSize
         let itemsCount = colors.count + 1 // 1 is for "delete"
-        return CGSize(width: itemSide*CGFloat(itemsCount), height: itemSide*20)
+        return CGSize(width: itemSide*CGFloat(itemsCount*2), height: itemSide*3)
     }
     
 // MARK: - Private

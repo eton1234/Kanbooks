@@ -51,14 +51,14 @@ class AutoHighlightModel {
                     }*/
             }
         }
-        //print(fee)
+        print(fee)
         
         (navigator as? DecorableNavigator)?.apply(
                         decorations: fee.enumerated().map { (index, word) in
                             Decoration(
                                 id: "word-\(index)",
                                 locator: word.locator,
-                                style: .highlight(tint: .red, isActive: true)
+                                style: .underline()
                             )
                         },
                         in: "fee")

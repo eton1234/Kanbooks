@@ -51,7 +51,7 @@ final class Database {
             }
             try db.create(table: "word", ifNotExists: true) { t in
                 t.column("id", .text).primaryKey()
-                t.column("bookId", .integer).references("book", onDelete: .cascade).notNull()
+                //t.column("bookId", .integer).references("book", onDelete: .cascade).notNull()
                 t.column("locator", .text)
                 t.column("progression", .double).notNull()
                 t.column("color", .integer).notNull()

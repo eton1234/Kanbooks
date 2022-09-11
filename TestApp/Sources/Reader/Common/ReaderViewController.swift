@@ -12,7 +12,12 @@ import R2Shared
 import SwiftSoup
 import WebKit
 import SwiftUI
-
+class Translation: ObservableObject {
+    @Published var text : String
+    init(text: String) {
+            self.text = text
+        }
+}
 /// This class is meant to be subclassed by each publication format view controller. It contains the shared behavior, eg. navigation bar toggling.
 class ReaderViewController: UIViewController, Loggable {
     weak var moduleDelegate: ReaderFormatModuleDelegate?
@@ -45,17 +50,20 @@ class ReaderViewController: UIViewController, Loggable {
     private var highlightContextMenu: UIHostingController<HighlightContextMenu>?
     private let highlightDecorationGroup = "highlights"
     private var currentHighlightCancellable: AnyCancellable?
+    private var les : String;
+    public var translation = Translation(text: "");
     
-    init(navigator: UIViewController & Navigator, publication: Publication, bookId: Book.Id, books: BookRepository, bookmarks: BookmarkRepository, highlights: HighlightRepository? = nil) {
+    init(navigator: UIViewController & Navigator, publication: Publication, bookId: Book.Id, books: BookRepository, bookmarks: BookmarkRepository, highlights: HighlightRepository? = nil, les: String = "no translation") {
         self.navigator = navigator
         self.publication = publication
         self.bookId = bookId
         self.books = books
         self.bookmarks = bookmarks
         self.highlights = highlights
-
+        SwiftGoogleTranslate.shared.start(with: "AIzaSyDRdCPU29xPWrz4PWkkvMRmvZMvxe0rLkI")
         ttsViewModel = TTSViewModel(navigator: navigator, publication: publication)
         ttsControlsViewController = ttsViewModel.map { UIHostingController(rootView: TTSControls(viewModel: $0)) }
+        self.les = les
         //the force unwrap is kindabad
         //autoHighlighter = AutoHighlightModel(publication: publication, navigator: navigator )
         super.init(nibName: nil, bundle: nil)
@@ -273,7 +281,6 @@ class ReaderViewController: UIViewController, Loggable {
             }
         }
     }
-    
     private func updateHighlightDecorations() {
         guard let highlights = highlights else { return }
         
@@ -302,11 +309,20 @@ class ReaderViewController: UIViewController, Loggable {
         if highlightContextMenu != nil {
             highlightContextMenu?.removeFromParent()
         }
+
         
-        let menuView = HighlightContextMenu(colors: [.red, .green, .blue, .yellow, .clear],
+        SwiftGoogleTranslate.shared.translate(String(highlight.locator.text.highlight ?? "none"), "en", "zh") { (text, error) in
+          if let t = text {
+              DispatchQueue.main.async {
+              self.translation.text = t
+              }
+              print("hello", t)
+          } else {}
+        }
+        let menuView = HighlightContextMenu(trans: self.translation, colors: [.red, .clear],
                                             systemFontSize: 20,
-                                            colorScheme: colorScheme, highlight: highlight)
-        
+                                            colorScheme: self.colorScheme, highlight: highlight, translation: self.les)
+
         menuView.selectedColorPublisher.sink { [weak self] color in
             self?.currentHighlightCancellable?.cancel()
             self?.updateHighlight(event.decoration.id, withColor: color)
@@ -323,7 +339,7 @@ class ReaderViewController: UIViewController, Loggable {
         
         self.highlightContextMenu = UIHostingController(rootView: menuView)
         
-       // highlightContextMenu!.preferredContentSize = menuView.preferredSize
+        highlightContextMenu!.preferredContentSize = menuView.preferredSize
         highlightContextMenu!.modalPresentationStyle = .popover
         highlightContextMenu!.view.backgroundColor = UIColor(colorScheme.mainColor)
         
