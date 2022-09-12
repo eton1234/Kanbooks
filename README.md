@@ -7,7 +7,7 @@
 # Language Learning Features
 * The reader automatically highlights words in the publication that you don't know
 * Tap on words for instant translation
-![Screen Recording 2022-09-11 at 6 55 13 PM](https://user-images.githubusercontent.com/50380126/189561047-bfca46b0-cee1-496c-a687-5c3f994ea109.gif)
+[Screen Recording 2022-09-11 at 6 55 13 PM](https://user-images.githubusercontent.com/50380126/189561047-bfca46b0-cee1-496c-a687-5c3f994ea109.gif)
 
 # Installation
 * First install [Swift-toolkit](https://github.com/readium/swift-toolkit.git)
