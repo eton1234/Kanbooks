@@ -5,21 +5,22 @@
 * Supports basic TTS
 
 # Language Learning Features
-* The reader automatically highlights words in the publication that you don't know
-* Tap on words for instant translation
+* Tap on words for instant translation. Mark them as known or unknown
+* Unknown words are automatically highlighted
 
 ![Screen Recording 2022-09-11 at 6 55 13 PM](https://user-images.githubusercontent.com/50380126/189561047-bfca46b0-cee1-496c-a687-5c3f994ea109.gif)
 
+# Note :  
+* As of now this project is more of a prototype due to performance issues with the automatic highlighting
+* Built off of tthe Readium EReading framework
 # Installation
-* First install [Swift-toolkit](https://github.com/readium/swift-toolkit.git)
+* Clone the repo
 * Install [XcodeGen] (https://github.com/yonaskolb/XcodeGen.git)
-*
+
 ```
 cd Swift-toolkit/TestApp
 make dev
 ```
-* Go into xcode
-* pull/fetch from Kanbooks
 
 
 #Built off of Readium: ------------------
