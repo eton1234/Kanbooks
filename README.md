@@ -11,8 +11,8 @@
 ![Screen Recording 2022-09-11 at 6 55 13 PM](https://user-images.githubusercontent.com/50380126/189561047-bfca46b0-cee1-496c-a687-5c3f994ea109.gif)
 
 # Note :  
-* As of now this project is more of a prototype due to performance issues with the automatic highlighting
-* Built off of tthe Readium EReading framework
+* As of now this project is more of a prototype due to performance issues with the automatic highlighting and 
+* Built off of tthe Readium EReading framework and uses SwiftGoogleTranslate API
 # Installation
 * Clone the repo
 * Install [XcodeGen] (https://github.com/yonaskolb/XcodeGen.git)
