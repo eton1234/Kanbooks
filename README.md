@@ -1,5 +1,29 @@
-# Readium Swift Toolkit
+# Basic Features
+* Books may be either downloaded from OPDS catologs, Files, or links containing EPUB downloads
+* Reader customization: font size, line spacing, darkMode/lightMode
+* Displays PDF, EPUB, and CBZ file formats
+* Supports basic TTS
 
+# Language Learning Features
+* The reader automatically highlights words in the publication that you don't know
+* <img width="308" alt="image" src="https://user-images.githubusercontent.com/50380126/189559617-0acec9a9-bcf0-4451-bb74-c658d0de6bab.png">
+
+* Tap on words for instant translation
+![Screen Recording 2022-09-11 at 6 55 13 PM](https://user-images.githubusercontent.com/50380126/189561047-bfca46b0-cee1-496c-a687-5c3f994ea109.gif)
+
+# Installation
+* First install [Swift-toolkit](https://github.com/readium/swift-toolkit.git)
+* Install [XcodeGen] (https://github.com/yonaskolb/XcodeGen.git)
+*
+```
+cd Swift-toolkit/TestApp
+make dev
+```
+* Go into xcode
+* pull/fetch from Kanbooks
+
+
+#Built off of Readium: ------------------
 [Readium Mobile](https://github.com/readium/mobile) is a toolkit for ebooks, audiobooks and comics written in Swift & Kotlin.
 
 This toolkit is a modular project, which follows the [Readium Architecture](https://github.com/readium/architecture).
